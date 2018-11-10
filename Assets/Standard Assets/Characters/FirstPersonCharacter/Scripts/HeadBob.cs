@@ -22,6 +22,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
+            
        //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
         }
 
@@ -35,13 +36,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Camera.transform.localPosition = motionBob.DoHeadBob(rigidbodyFirstPersonController.Velocity.magnitude*(rigidbodyFirstPersonController.Running ? RunningStrideLengthen : 1f));
                 newCameraPosition = Camera.transform.localPosition;
                 newCameraPosition.y = Camera.transform.localPosition.y - jumpAndLandingBob.Offset();
+                newCameraPosition.y += 1.3f;
+                newCameraPosition.z -= 3f;
             }
             else
             {
                 newCameraPosition = Camera.transform.localPosition;
                 newCameraPosition.y = m_OriginalCameraPosition.y - jumpAndLandingBob.Offset();
+
             }
+            
             Camera.transform.localPosition = newCameraPosition;
+            
 
             if (!m_PreviouslyGrounded && rigidbodyFirstPersonController.Grounded)
             {

@@ -191,6 +191,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
+                // newCameraPosition.y += 1.22f;
+                newCameraPosition.z -= 1.81f;
             }
             else
             {

@@ -10,6 +10,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        [SerializeField] private float m_SlowRate;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -105,8 +106,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+            m_MoveDir.x = desiredMove.x*speed*m_SlowRate;
+            m_MoveDir.z = desiredMove.z*speed*m_SlowRate;
 
 
             if (m_CharacterController.isGrounded)
@@ -192,7 +193,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
                 // newCameraPosition.y += 1.22f;
-                newCameraPosition.z -= 1.81f;
+                newCameraPosition.z -= 2f;
             }
             else
             {

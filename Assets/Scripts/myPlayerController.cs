@@ -2,7 +2,7 @@
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.Networking;
 
-public class PlayerController: NetworkBehaviour 
+public class myPlayerController: NetworkBehaviour 
 {
 	private FirstPersonController fpsController;
 	private Transform playerCameraTransform;

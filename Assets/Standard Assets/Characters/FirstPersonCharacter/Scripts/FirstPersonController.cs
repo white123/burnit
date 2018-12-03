@@ -28,6 +28,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField] private float m_CamaraBackOffset;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -193,7 +194,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
                 // newCameraPosition.y += 1.22f;
-                newCameraPosition.z -= 2f;
+                newCameraPosition.z -= m_CamaraBackOffset;
             }
             else
             {

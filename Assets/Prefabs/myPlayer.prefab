@@ -889,8 +889,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.2, z: 0.1}
-  m_Center: {x: 0, y: 0.2, z: 0.05}
+  m_Size: {x: 0.1, y: 0.3757586, z: 0.14333773}
+  m_Center: {x: 0, y: 0.11212072, z: 0.07166886}
 --- !u!65 &65506825002253204
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -901,8 +901,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2, z: 0.8}
-  m_Center: {x: 0, y: 0.15, z: 0.4}
+  m_Size: {x: 0.2, y: 0.31521273, z: 0.8}
+  m_Center: {x: 0, y: 0.09239364, z: 0.4}
 --- !u!81 &81840469845684458
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaee93cd27694f48b6329f5a623087c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heat: 1
 --- !u!114 &114518804707626384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1109,6 +1110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f582509a22687764f9da631a6d371c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heat: 1
 --- !u!114 &114928282150329272
 MonoBehaviour:
   m_ObjectHideFlags: 1

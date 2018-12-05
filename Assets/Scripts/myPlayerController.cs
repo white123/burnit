@@ -88,76 +88,73 @@ public class myPlayerController: NetworkBehaviour
     [ClientRpc]
     public void RpcChangeCharacter()
     {
-        if (isLocalPlayer)
+        
+        if (lighterOrExtinguisher == 0)
         {
-            if (lighterOrExtinguisher == 0)
-            {
-                transform.Find("MyLighter").gameObject.SetActive(false);
-                transform.Find("MyExtinguisher").gameObject.SetActive(true);
-                lighterOrExtinguisher = 1;
-            }
-            else if (lighterOrExtinguisher == 1)
-            {
-                transform.Find("MyLighter").gameObject.SetActive(true);
-                transform.Find("MyExtinguisher").gameObject.SetActive(false);
-                lighterOrExtinguisher = 0;
-            }
-            else
-            {
-                Debug.Log("error for change;");
-            }
+            transform.Find("MyLighter").gameObject.SetActive(false);
+            transform.Find("MyExtinguisher").gameObject.SetActive(true);
+            lighterOrExtinguisher = 1;
         }
+        else if (lighterOrExtinguisher == 1)
+        {
+            transform.Find("MyLighter").gameObject.SetActive(true);
+            transform.Find("MyExtinguisher").gameObject.SetActive(false);
+            lighterOrExtinguisher = 0;
+        }
+        else
+        {
+            Debug.Log("error for change;");
+        }
+        
         
     }
 
     [ClientRpc]
     public void RpcSkillOn()
     {
-        if (isLocalPlayer)
+        
+        if (lighterOrExtinguisher == 0)
         {
-            if (lighterOrExtinguisher == 0)
-            {
-                GameObject character = transform.Find("MyLighter").gameObject;
-                character.transform.Find("LighterFlame").gameObject.SetActive(true);
+            GameObject character = transform.Find("MyLighter").gameObject;
+            character.transform.Find("LighterFlame").gameObject.SetActive(true);
 
 
-            }
-            else if (lighterOrExtinguisher == 1)
-            {
-                GameObject character = transform.Find("MyExtinguisher").gameObject;
-                character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(true);
-
-            }
-            else
-            {
-                Debug.Log("error for skill;");
-            }
         }
+        else if (lighterOrExtinguisher == 1)
+        {
+            GameObject character = transform.Find("MyExtinguisher").gameObject;
+            character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(true);
+
+        }
+        else
+        {
+            Debug.Log("error for skill;");
+        }
+        
         
     }
 
     [ClientRpc]
     public void RpcSkillOff()
     {
-        if (isLocalPlayer)
+      
+        if (lighterOrExtinguisher == 0)
         {
-            if (lighterOrExtinguisher == 0)
-            {
-                GameObject character = transform.Find("MyLighter").gameObject;
-                character.transform.Find("LighterFlame").gameObject.SetActive(false);
+            GameObject character = transform.Find("MyLighter").gameObject;
+            character.transform.Find("LighterFlame").gameObject.SetActive(false);
 
 
-            }
-            else if (lighterOrExtinguisher == 1)
-            {
-                GameObject character = transform.Find("MyExtinguisher").gameObject;
-                character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(false);
-            }
-            else
-            {
-                Debug.Log("error for skill;");
-            }
         }
+        else if (lighterOrExtinguisher == 1)
+        {
+            GameObject character = transform.Find("MyExtinguisher").gameObject;
+            character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("error for skill;");
+        }
+        
         
     }
 }

@@ -9,13 +9,19 @@ public class myPlayerController: NetworkBehaviour
 	private Camera playerCamera;
 	private AudioListener playerAudioListener;
 
-    private int lighterOrExtinguisher = 1; // 0 for lighter, 1 for Extinguisher
+    private int lighterOrExtinguisher; // 0 for lighter, 1 for Extinguisher
     
 	void Start()
 	{
 
 	    if (isLocalPlayer)
         {
+            if (transform.Find("MyLighter").gameObject.activeSelf)
+                lighterOrExtinguisher = 0;
+            else if (transform.Find("MyExtinguisher").gameObject.activeSelf)
+                lighterOrExtinguisher = 1;
+            else
+                Debug.LogError("set active lighter or extinguisher only one");
             gameObject.name = "ME";
             
         }
@@ -103,7 +109,7 @@ public class myPlayerController: NetworkBehaviour
         }
         else
         {
-            Debug.Log("error for change;");
+            Debug.LogError("error for change;");
         }
         
         
@@ -117,6 +123,7 @@ public class myPlayerController: NetworkBehaviour
         {
             GameObject character = transform.Find("MyLighter").gameObject;
             character.transform.Find("LighterFlame").gameObject.SetActive(true);
+            character.GetComponent<BoxCollider>().enabled = true;
 
 
         }
@@ -124,11 +131,12 @@ public class myPlayerController: NetworkBehaviour
         {
             GameObject character = transform.Find("MyExtinguisher").gameObject;
             character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(true);
+            character.GetComponent<BoxCollider>().enabled = true;
 
         }
         else
         {
-            Debug.Log("error for skill;");
+            Debug.LogError("error for skill;");
         }
         
         
@@ -142,17 +150,18 @@ public class myPlayerController: NetworkBehaviour
         {
             GameObject character = transform.Find("MyLighter").gameObject;
             character.transform.Find("LighterFlame").gameObject.SetActive(false);
-
+            character.GetComponent<BoxCollider>().enabled = false;
 
         }
         else if (lighterOrExtinguisher == 1)
         {
             GameObject character = transform.Find("MyExtinguisher").gameObject;
             character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(false);
+            character.GetComponent<BoxCollider>().enabled = false;
         }
         else
         {
-            Debug.Log("error for skill;");
+            Debug.LogError("error for skill;");
         }
         
         

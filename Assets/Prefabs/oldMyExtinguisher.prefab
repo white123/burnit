@@ -79,10 +79,10 @@ GameObject:
   - component: {fileID: 54501021244581586}
   - component: {fileID: 82356937205861038}
   - component: {fileID: 114796867568612560}
-  - component: {fileID: 114556069652499976}
   - component: {fileID: 114984065016476968}
+  - component: {fileID: 114723213493145020}
   m_Layer: 0
-  m_Name: MyExtinguisher 1
+  m_Name: oldMyExtinguisher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,17 +430,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114556069652499976
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1423312238744794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33a1fba7b2445364d8cfadbb61b558f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114634954069617114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -566,6 +555,17 @@ MonoBehaviour:
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
   m_CamaraBackOffset: 2
+--- !u!114 &114723213493145020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423312238744794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622ea007562892d44ae4b0a7c46d15f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114796867568612560
 MonoBehaviour:
   m_ObjectHideFlags: 1

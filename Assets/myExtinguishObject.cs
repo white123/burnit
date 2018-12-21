@@ -7,7 +7,6 @@ public class myExtinguishObject : MonoBehaviour {
     public float heat = 2f;
     private void OnTriggerStay(Collider other)
     {
-        
         var objectStatus = other.transform.gameObject.GetComponent<myObjectStatus>();
         if (objectStatus) objectStatus.CoolDown(heat);
     }

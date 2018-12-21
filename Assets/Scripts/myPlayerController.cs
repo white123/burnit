@@ -58,11 +58,11 @@ public class myPlayerController: NetworkBehaviour
 
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            CmdSkillOn(this.transform.gameObject);
+            CmdSkillOn();
         }
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
-            CmdSkillOff(this.transform.gameObject);
+            CmdSkillOff();
         }
         
         if (Input.GetKeyUp(KeyCode.R))
@@ -72,16 +72,22 @@ public class myPlayerController: NetworkBehaviour
 
     }
 
+    public bool iisLocalPlayer()
+    {
+        if (isLocalPlayer) return true;
+        return false;
+    }
+
 
     [Command]
-    private void CmdSkillOn(GameObject character)
+    private void CmdSkillOn()
     {
-        character.GetComponent<myPlayerController>().RpcSkillOn();
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcSkillOn();
     }
     [Command]
-    private void CmdSkillOff(GameObject character)
+    private void CmdSkillOff()
     {
-        character.GetComponent<myPlayerController>().RpcSkillOff();
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcSkillOff();
     }
     [Command]
     private void CmdChangeCharacter(GameObject character)

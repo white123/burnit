@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class myObjectStatus : MonoBehaviour {
+public class myObjectStatus : NetworkBehaviour {
 
     public Transform fire;
     public Material burnedMat0;
@@ -19,8 +20,11 @@ public class myObjectStatus : MonoBehaviour {
     private const float MAX_T = 100;
     private const float MIN_T = 0;
     private const float FIRE_POINT = 30;
-    private float curHealth;
-    private float temperature = 0;
+
+    [SyncVar]
+    public float curHealth;
+    [SyncVar]
+    public float temperature = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +33,6 @@ public class myObjectStatus : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
         if(curHealth > 0)
         {
             if (temperature > FIRE_POINT && temperature <= MAX_T)
@@ -49,7 +52,7 @@ public class myObjectStatus : MonoBehaviour {
                 if (isSmoking) SetSmokeOff();
             }
 
-            if (temperature > MIN_T) curHealth -= temperature * Time.deltaTime;
+            if (temperature > MIN_T && isServer) curHealth -= temperature * Time.deltaTime;
             if(curHealth <= 0.25*maxHealth)
             {
                 ChangeMaterial(burnedMat25);
@@ -79,6 +82,7 @@ public class myObjectStatus : MonoBehaviour {
 
     public void HeatUp(float heat)
     {
+        if (!isServer) return;
         if(temperature < MAX_T)
         {
             temperature += heat / specificHeat;
@@ -86,6 +90,7 @@ public class myObjectStatus : MonoBehaviour {
     }
     public void CoolDown(float heat)
     {
+        if (!isServer) return;
         if (temperature > MIN_T)
         {
             temperature -= heat / specificHeat;
@@ -95,24 +100,36 @@ public class myObjectStatus : MonoBehaviour {
     private void SetBurn()
     {
         isBurning = true;
-        this.transform.Find("MyFire").gameObject.SetActive(true);
-        
+        for(int i = 0; i < transform.childCount; ++i){
+            if(this.transform.GetChild(i).tag == "Fire")
+                this.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
     private void SetExtinguish()
     {
         isBurning = false;
-        this.transform.Find("MyFire").gameObject.SetActive(false);
+        for(int i = 0; i < transform.childCount; ++i){
+            if(this.transform.GetChild(i).tag == "Fire")
+                this.transform.GetChild(i).gameObject.SetActive(false);
+        }
         
     }
     private void SetSmoke()
     {
         isSmoking = true;
-        this.transform.Find("Smoke").gameObject.SetActive(true);
+        for(int i = 0; i < transform.childCount; ++i){
+            if(this.transform.GetChild(i).tag == "Smoke")
+                this.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
     private void SetSmokeOff()
     {
         isSmoking = false;
-        this.transform.Find("Smoke").gameObject.SetActive(false);
+        for(int i = 0; i < transform.childCount; ++i){
+            if(this.transform.GetChild(i).tag == "Smoke")
+                this.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        
     }
 
     void ChangeMaterial(Material newMat)
@@ -121,9 +138,8 @@ public class myObjectStatus : MonoBehaviour {
         children = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in children)
         {
-            if (rend.name == "Smoke") continue;
-            if (rend.name == "MyFire") continue;
-            if (rend.transform.parent.name == "MyFire") continue;
+            if (rend.tag == "Smoke") continue;
+            if (rend.tag == "Fire") continue;
             
             
             var mats = new Material[rend.materials.Length];

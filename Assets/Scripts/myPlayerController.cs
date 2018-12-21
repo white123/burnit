@@ -64,6 +64,14 @@ public class myPlayerController: NetworkBehaviour
         {
             CmdSkillOff();
         }
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            CmdAttackOn();
+        }
+        if(Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            CmdAttackOff();
+        }
         
         if (Input.GetKeyUp(KeyCode.R))
         {
@@ -94,9 +102,32 @@ public class myPlayerController: NetworkBehaviour
     {
         character.GetComponent<myPlayerController>().RpcChangeCharacter();
     }
+    [Command]
+    public void CmdKilled()
+    {
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcKilled();
+    }
+    [Command]
+    public void CmdAttackOn()
+    {
+        if (gameObject.tag == "Lighter") return;
+        Debug.Log("CMD");
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcAttackOn();
+    }
+    [Command]
+    public void CmdAttackOff()
+    {
+        if (gameObject.tag == "Lighter") return;
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcAttackOff();
+    }
+   
 
 
-
+    [ClientRpc]
+    public void RpcKilled()
+    {
+        Debug.Log("I dead");
+    }
     [ClientRpc]
     public void RpcChangeCharacter()
     {
@@ -105,12 +136,14 @@ public class myPlayerController: NetworkBehaviour
         {
             transform.Find("MyLighter").gameObject.SetActive(false);
             transform.Find("MyExtinguisher").gameObject.SetActive(true);
+            gameObject.tag = "Extinguisher";
             lighterOrExtinguisher = 1;
         }
         else if (lighterOrExtinguisher == 1)
         {
             transform.Find("MyLighter").gameObject.SetActive(true);
             transform.Find("MyExtinguisher").gameObject.SetActive(false);
+            gameObject.tag = "Lighter";
             lighterOrExtinguisher = 0;
         }
         else
@@ -169,8 +202,17 @@ public class myPlayerController: NetworkBehaviour
         {
             Debug.LogError("error for skill;");
         }
+    }
+    [ClientRpc]
+    public void RpcAttackOn()
+    {   
         
-        
+        gameObject.GetComponent<Animator>().Play("axe");
+    }
+    [ClientRpc]
+    public void RpcAttackOff()
+    {   
+        //gameObject.GetComponent<Animator>().enabled = false;
     }
 }
 

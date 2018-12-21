@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Smoke
   - Fire
+  - Lighter
+  - Extinguisher
   layers:
   - Default
   - TransparentFX

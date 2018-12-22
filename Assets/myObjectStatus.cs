@@ -11,8 +11,8 @@ public class myObjectStatus : NetworkBehaviour {
     public Material burnedMat50;
     public Material burnedMat75;
 
-    public float maxHealth = 10000;
-    public float specificHeat = 1;
+    public float maxHealth;
+    public float specificHeat;
 
     private bool isBurning = false;
     private bool isSmoking = false;
@@ -75,11 +75,19 @@ public class myObjectStatus : NetworkBehaviour {
                 SetSmokeOff();
                 ChangeMaterial(burnedMat0);
                 isDead = true;
+                curHealth = 0;
             }
             
         }
 	}
-
+    public float getMaxHealth()
+    {
+        return maxHealth;
+    }
+    public float getCurHealth()
+    {
+        return curHealth;
+    }
     public void HeatUp(float heat)
     {
         if (!isServer) return;

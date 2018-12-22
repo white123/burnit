@@ -8,6 +8,6 @@ public class myBurnObject : MonoBehaviour {
     private void OnTriggerStay(Collider other)
     {
 		var objectStatus = other.transform.gameObject.GetComponent<myObjectStatus>();
-    	if (objectStatus) objectStatus.HeatUp(heat);
+        if (objectStatus) objectStatus.HeatUp(heat);
     }
 }

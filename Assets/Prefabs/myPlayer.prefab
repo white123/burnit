@@ -1018,7 +1018,7 @@ BoxCollider:
   m_GameObject: {fileID: 1106558081503052}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.6909954, y: 0.033897586, z: 0.048303694}
   m_Center: {x: 0.012535024, y: -0.00000006390983, z: 0.07149982}
@@ -1032,8 +1032,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.31521273, z: 0.8}
-  m_Center: {x: 0, y: 0.09239364, z: 0.4}
+  m_Size: {x: 0.2, y: 0.3721187, z: 0.8}
+  m_Center: {x: 0, y: 0.12084663, z: 0.4}
 --- !u!81 &81840469845684458
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1267,6 +1267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1fba7b2445364d8cfadbb61b558f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasPrefab: {fileID: 1159824697340640, guid: ea13904a1adca7a488a6b932d3d13337,
+    type: 2}
 --- !u!114 &114720911221304768
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 
 public class myPlayerController: NetworkBehaviour 
 {
+    public GameObject canvasPrefab;
+
 	private FirstPersonController fpsController;
 	private Transform playerCameraTransform;
 	private Camera playerCamera;
@@ -66,11 +68,7 @@ public class myPlayerController: NetworkBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
-            CmdAttackOn();
-        }
-        if(Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            CmdAttackOff();
+            CmdAttack();
         }
         
         if (Input.GetKeyUp(KeyCode.R))
@@ -103,30 +101,34 @@ public class myPlayerController: NetworkBehaviour
         character.GetComponent<myPlayerController>().RpcChangeCharacter();
     }
     [Command]
-    public void CmdKilled()
+    public void CmdKilled(GameObject killed)
     {
-        this.transform.gameObject.GetComponent<myPlayerController>().RpcKilled();
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcKilled(killed);
     }
     [Command]
-    public void CmdAttackOn()
+    public void CmdAttack()
     {
         if (gameObject.tag == "Lighter") return;
-        Debug.Log("CMD");
-        this.transform.gameObject.GetComponent<myPlayerController>().RpcAttackOn();
-    }
-    [Command]
-    public void CmdAttackOff()
-    {
-        if (gameObject.tag == "Lighter") return;
-        this.transform.gameObject.GetComponent<myPlayerController>().RpcAttackOff();
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcAttack();
     }
    
 
 
     [ClientRpc]
-    public void RpcKilled()
+    public void RpcKilled(GameObject killed)
     {
-        Debug.Log("I dead");
+        if ("ME" != killed.name) return;
+        Instantiate (canvasPrefab, Vector2.zero, Quaternion.identity);
+        fpsController = killed.GetComponent<FirstPersonController>();
+        if (fpsController)
+        {
+            fpsController.enabled = false;
+        }
+        var myController = killed.GetComponent<myPlayerController>();
+        if (myController)
+        {
+            myController.enabled = false;
+        }
     }
     [ClientRpc]
     public void RpcChangeCharacter()
@@ -204,15 +206,10 @@ public class myPlayerController: NetworkBehaviour
         }
     }
     [ClientRpc]
-    public void RpcAttackOn()
+    public void RpcAttack()
     {   
         
         gameObject.GetComponent<Animator>().Play("axe");
-    }
-    [ClientRpc]
-    public void RpcAttackOff()
-    {   
-        //gameObject.GetComponent<Animator>().enabled = false;
     }
 }
 

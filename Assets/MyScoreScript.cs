@@ -12,6 +12,8 @@ public class MyScoreScript : NetworkBehaviour {
     [SyncVar]
     private float curTotalHealth;
     private GameObject[] all;
+    private Color red;
+    private Color yello;
     void Start()
     {
         totalHealth = 0f;
@@ -21,6 +23,8 @@ public class MyScoreScript : NetworkBehaviour {
         {
             totalHealth += a.GetComponent<myObjectStatus>().maxHealth;
         }
+        red = new Color(1f, 0f, 0f);
+        yello = new Color(1f, 250f / 255f, 205f / 255f);
     }
     void Update()
     {
@@ -29,6 +33,10 @@ public class MyScoreScript : NetworkBehaviour {
         {
             curTotalHealth += a.GetComponent<myObjectStatus>().getCurHealth();
         }
-        scoreText.text =  (curTotalHealth / totalHealth).ToString("P");
+        float health = (curTotalHealth / totalHealth);
+        scoreText.text =  health.ToString("P");
+
+        if (health < 0.6f) scoreText.color = yello;
+        if (health < 0.3f) scoreText.color = red;
     }
 }

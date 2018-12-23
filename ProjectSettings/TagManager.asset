@@ -9,6 +9,8 @@ TagManager:
   - Lighter
   - Extinguisher
   - Object
+  - canvas
+  - Dead
   layers:
   - Default
   - TransparentFX

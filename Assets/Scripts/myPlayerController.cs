@@ -4,17 +4,20 @@ using UnityEngine.Networking;
 
 public class myPlayerController: NetworkBehaviour 
 {
-    public GameObject canvasPrefab;
+    public GameObject defeatedCanvas;
 
 	private FirstPersonController fpsController;
 	private Transform playerCameraTransform;
 	private Camera playerCamera;
 	private AudioListener playerAudioListener;
 
+    private bool isDead;
+
     private int lighterOrExtinguisher; // 0 for lighter, 1 for Extinguisher
     
 	void Start()
 	{
+        isDead = false;
 
 	    if (isLocalPlayer)
         {
@@ -71,7 +74,7 @@ public class myPlayerController: NetworkBehaviour
             CmdAttack();
         }
         
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.P))
         {
             CmdChangeCharacter(this.transform.gameObject);
         }
@@ -83,7 +86,10 @@ public class myPlayerController: NetworkBehaviour
         if (isLocalPlayer) return true;
         return false;
     }
-
+    public bool Dead()
+    {
+        return isDead;
+    }
 
     [Command]
     private void CmdSkillOn()
@@ -111,14 +117,22 @@ public class myPlayerController: NetworkBehaviour
         if (gameObject.tag == "Lighter") return;
         this.transform.gameObject.GetComponent<myPlayerController>().RpcAttack();
     }
+    [Command]
+    public void CmdChange()
+    {
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcChangeCharacter();
+    }
    
 
 
     [ClientRpc]
     public void RpcKilled(GameObject killed)
     {
+        if (isDead) return;
+        isDead = true;
+        gameObject.tag = "Dead";
         if ("ME" != killed.name) return;
-        Instantiate (canvasPrefab, Vector2.zero, Quaternion.identity);
+        Instantiate (defeatedCanvas, Vector2.zero, Quaternion.identity);
         fpsController = killed.GetComponent<FirstPersonController>();
         if (fpsController)
         {

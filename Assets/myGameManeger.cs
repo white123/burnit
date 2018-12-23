@@ -198,5 +198,10 @@ public class myGameManeger : NetworkBehaviour {
 
         over = true;
         Time.timeScale = 0;
+
+        AudioSource source = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        //source.Stop();
+        source.pitch = 0.6f;
+        //source.Play();
     }
 }

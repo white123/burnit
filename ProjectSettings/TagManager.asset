@@ -11,6 +11,8 @@ TagManager:
   - Object
   - canvas
   - Dead
+  - BGM
+  - Sound
   layers:
   - Default
   - TransparentFX

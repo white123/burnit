@@ -11,6 +11,11 @@ public class myPlayerController: NetworkBehaviour
 	private Camera playerCamera;
 	private AudioListener playerAudioListener;
 
+    [SerializeField] private AudioClip m_LighterSound;
+    [SerializeField] private AudioClip m_ExtinguisherSound;
+    [SerializeField] private AudioClip m_AttackSound;
+    private AudioSource m_AudioSource;
+
     private bool isDead;
 
     private int lighterOrExtinguisher; // 0 for lighter, 1 for Extinguisher
@@ -18,8 +23,8 @@ public class myPlayerController: NetworkBehaviour
 	void Start()
 	{
         isDead = false;
-
-	    if (isLocalPlayer)
+        
+        if (isLocalPlayer)
         {
             if (transform.Find("MyLighter").gameObject.activeSelf)
                 lighterOrExtinguisher = 0;
@@ -28,7 +33,7 @@ public class myPlayerController: NetworkBehaviour
             else
                 Debug.LogError("set active lighter or extinguisher only one");
             gameObject.name = "ME";
-            
+            m_AudioSource = this.transform.Find("SoundEffect").GetComponent<AudioSource>();
         }
 
         //當角色被產生出來時，如果不是Local Player就把所有的控制項目關閉，這些角色的位置資料將由Server來同步
@@ -64,16 +69,29 @@ public class myPlayerController: NetworkBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             CmdSkillOn();
+            if (this.tag == "Lighter") { m_AudioSource.clip = m_LighterSound; m_AudioSource.loop = false; }
+            else { m_AudioSource.clip = m_ExtinguisherSound; m_AudioSource.loop = true; }
+            m_AudioSource.Play();
         }
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             CmdSkillOff();
+            m_AudioSource.Stop();
         }
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
+            if (this.tag == "Lighter") return;
             CmdAttack();
+            m_AudioSource.loop = true;
+            m_AudioSource.clip = m_AttackSound;
+            m_AudioSource.Play();
         }
-        
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            if (this.tag == "Lighter") return;
+            m_AudioSource.Stop();
+        }
+
         if (Input.GetKeyUp(KeyCode.P))
         {
             CmdChangeCharacter(this.transform.gameObject);
@@ -179,15 +197,12 @@ public class myPlayerController: NetworkBehaviour
             GameObject character = transform.Find("MyLighter").gameObject;
             character.transform.Find("LighterFlame").gameObject.SetActive(true);
             character.GetComponent<BoxCollider>().enabled = true;
-
-
         }
         else if (lighterOrExtinguisher == 1)
         {
             GameObject character = transform.Find("MyExtinguisher").gameObject;
             character.transform.Find("TyreBurnoutSmoke").gameObject.SetActive(true);
             character.GetComponent<BoxCollider>().enabled = true;
-
         }
         else
         {

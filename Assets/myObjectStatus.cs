@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class myObjectStatus : NetworkBehaviour {
 
@@ -20,6 +21,8 @@ public class myObjectStatus : NetworkBehaviour {
     private const float MAX_T = 100;
     private const float MIN_T = 0;
     private const float FIRE_POINT = 30;
+    private Color red;
+    private Color yello;
 
     [SyncVar]
     public float curHealth;
@@ -29,7 +32,10 @@ public class myObjectStatus : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         curHealth = maxHealth;
-	}
+        //initiate color
+        red = new Color(1f, 0f, 0f);
+        yello = new Color(1f, 250f / 255f, 205f / 255f);
+    }
 
     // Update is called once per frame
     void Update() {
@@ -53,6 +59,7 @@ public class myObjectStatus : NetworkBehaviour {
             }
 
             if (temperature > MIN_T && isServer) curHealth -= temperature * Time.deltaTime;
+            /*
             if(curHealth <= 0.25*maxHealth)
             {
                 ChangeMaterial(burnedMat25);
@@ -65,7 +72,17 @@ public class myObjectStatus : NetworkBehaviour {
             {
                 ChangeMaterial(burnedMat75);
             }
+            */
 
+            Transform status = transform.Find("Status");
+            if (status)
+            {
+                float h = curHealth / maxHealth;
+                status.Find("Background").Find("Blood").GetComponent<Image>().fillAmount = h;
+                status.LookAt(Camera.main.transform);
+                if (h < 0.8f) status.Find("Background").Find("Blood").GetComponent<Image>().color = yello;
+                if (h < 0.3f) status.Find("Background").Find("Blood").GetComponent<Image>().color = red;
+            }
         }
         else
         {

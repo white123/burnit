@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 222502131318687844}
   - component: {fileID: 114772686655661656}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,8 +429,8 @@ MonoBehaviour:
   startText: {fileID: 114318713005833808}
   gameoverCanvas: {fileID: 1652384119857946, guid: 3076de6e494262a47989e5e4a95d7fb4,
     type: 2}
-  gameTime: 3
-  waitTime: 3
+  gameTime: 300
+  waitTime: 13
 --- !u!114 &114575712618233970
 MonoBehaviour:
   m_ObjectHideFlags: 1

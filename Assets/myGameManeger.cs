@@ -183,7 +183,7 @@ public class myGameManeger : NetworkBehaviour {
             }
         }
         
-        if (h > 0.3f)
+        if (h > 0.1f)
         {
             if (isLighter) text.text = "YOU LOSE!";
             else text.text = "YOU WIN!";

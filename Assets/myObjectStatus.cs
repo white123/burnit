@@ -49,7 +49,7 @@ public class myObjectStatus : NetworkBehaviour {
         {
             if (temperature > FIRE_POINT && temperature <= MAX_T)
             {
-                HeatUp(0.1f);
+                HeatUp(0.5f);
                 if (!isBurning)
                 {
                     SetBurn();
@@ -72,7 +72,7 @@ public class myObjectStatus : NetworkBehaviour {
                 if (isSmoking) SetSmokeOff();
             }
 
-            if (temperature > MIN_T && isServer) curHealth -= temperature * Time.deltaTime;
+            if (temperature > MIN_T && isServer) curHealth -= temperature * Time.deltaTime * 1.8f;
             /*
             if(curHealth <= 0.25*maxHealth)
             {

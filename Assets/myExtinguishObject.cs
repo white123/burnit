@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class myExtinguishObject : MonoBehaviour {
 
-    public float heat = 4f;
+    public float heat = 50f;
     private void OnTriggerStay(Collider other)
     {
         var objectStatus = other.transform.gameObject.GetComponent<myObjectStatus>();

@@ -84,7 +84,7 @@ public class myGameManeger : NetworkBehaviour {
                 {
                     int extinguisher = Random.Range(0, count);
                     
-                    players[extinguisher].GetComponent<myPlayerController>().CmdChange();
+                    players[extinguisher].GetComponent<myPlayerController>().CmdChange((float)count);
                 }
                 
             }
@@ -143,9 +143,9 @@ public class myGameManeger : NetworkBehaviour {
         if (health < 0.8f) healthText.color = yello;
         if (health < 0.3f) healthText.color = red;
 
-        if(health <= 0)
+        if(health <= 0.2f)
         {
-            healthText.text = "0%";
+            healthText.text = "20%";
             gameover();
             return;
         }
@@ -185,7 +185,7 @@ public class myGameManeger : NetworkBehaviour {
             }
         }
         
-        if (h > 0.1f)
+        if (h > 20f)
         {
             if (isLighter) text.text = "YOU LOSE!";
             else text.text = "YOU WIN!";

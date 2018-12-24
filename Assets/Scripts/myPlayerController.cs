@@ -125,7 +125,7 @@ public class myPlayerController: NetworkBehaviour
     [Command]
     private void CmdChangeCharacter(GameObject character)
     {
-        character.GetComponent<myPlayerController>().RpcChangeCharacter();
+        //character.GetComponent<myPlayerController>().RpcChangeCharacter(2f);
     }
     [Command]
     public void CmdKilled(GameObject killed)
@@ -139,9 +139,9 @@ public class myPlayerController: NetworkBehaviour
         this.transform.gameObject.GetComponent<myPlayerController>().RpcAttack();
     }
     [Command]
-    public void CmdChange()
+    public void CmdChange(float n)
     {
-        this.transform.gameObject.GetComponent<myPlayerController>().RpcChangeCharacter();
+        this.transform.gameObject.GetComponent<myPlayerController>().RpcChangeCharacter(n);
     }
    
 
@@ -166,7 +166,7 @@ public class myPlayerController: NetworkBehaviour
         }
     }
     [ClientRpc]
-    public void RpcChangeCharacter()
+    public void RpcChangeCharacter(float n)
     {
         
         if (lighterOrExtinguisher == 0)
@@ -175,6 +175,7 @@ public class myPlayerController: NetworkBehaviour
             transform.Find("MyExtinguisher").gameObject.SetActive(true);
             gameObject.tag = "Extinguisher";
             GetComponent<FirstPersonController>().SetSpeed(15f, 30f);
+            transform.Find("MyExtinguisher").GetComponent<myExtinguishObject>().heat = 20 * n;
             lighterOrExtinguisher = 1;
         }
         else if (lighterOrExtinguisher == 1)

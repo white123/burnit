@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class myGameManeger : NetworkBehaviour {
 
@@ -82,6 +83,7 @@ public class myGameManeger : NetworkBehaviour {
                 if (isServer)
                 {
                     int extinguisher = Random.Range(0, count);
+                    players[extinguisher].GetComponent<FirstPersonController>().SetSpeed(12f, 24f);
                     players[extinguisher].GetComponent<myPlayerController>().CmdChange();
                 }
                 

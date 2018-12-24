@@ -29,12 +29,18 @@ public class myObjectStatus : NetworkBehaviour {
     [SyncVar]
     public float temperature = 0;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField] private AudioClip m_BurnSound;
+    private AudioSource m_AudioSource;
+
+    // Use this for initialization
+    void Start () {
         curHealth = maxHealth;
         //initiate color
         red = new Color(1f, 0f, 0f);
         yello = new Color(1f, 250f / 255f, 205f / 255f);
+        m_AudioSource = GetComponent<AudioSource>();
+        m_AudioSource.clip = m_BurnSound;
+        m_AudioSource.volume = 0.6f;
     }
 
     // Update is called once per frame
@@ -44,13 +50,21 @@ public class myObjectStatus : NetworkBehaviour {
             if (temperature > FIRE_POINT && temperature <= MAX_T)
             {
                 HeatUp(0.1f);
-                if (!isBurning) SetBurn();
+                if (!isBurning)
+                {
+                    SetBurn();
+                    m_AudioSource.Play();
+                }
                 
             }
             else if (temperature <= FIRE_POINT && temperature > MIN_T)
             {
                 CoolDown(0.1f);
-                if (isBurning) SetExtinguish();
+                if (isBurning)
+                {
+                    SetExtinguish();
+                    m_AudioSource.Stop();
+                }
                 if (!isSmoking) SetSmoke();
             }
             else if (temperature <= MIN_T)
@@ -93,6 +107,7 @@ public class myObjectStatus : NetworkBehaviour {
                 ChangeMaterial(burnedMat0);
                 isDead = true;
                 curHealth = 0;
+                m_AudioSource.Stop();
             }
             
         }

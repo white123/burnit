@@ -69,9 +69,12 @@ public class myPlayerController: NetworkBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             CmdSkillOn();
-            if (this.tag == "Lighter") { m_AudioSource.clip = m_LighterSound; m_AudioSource.loop = false; }
-            else { m_AudioSource.clip = m_ExtinguisherSound; m_AudioSource.loop = true; }
-            m_AudioSource.Play();
+            if (gameObject.tag != "Dead")
+            {
+                if (this.tag == "Lighter") { m_AudioSource.clip = m_LighterSound; m_AudioSource.loop = false; }
+                else { m_AudioSource.clip = m_ExtinguisherSound; m_AudioSource.loop = true; }
+                m_AudioSource.Play();
+            }
         }
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -82,14 +85,14 @@ public class myPlayerController: NetworkBehaviour
         {
             if (this.tag == "Lighter") return;
             CmdAttack();
-            m_AudioSource.loop = true;
+            m_AudioSource.loop = false;
             m_AudioSource.clip = m_AttackSound;
             m_AudioSource.Play();
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             if (this.tag == "Lighter") return;
-            m_AudioSource.Stop();
+            //m_AudioSource.Stop();
         }
 
         if (Input.GetKeyUp(KeyCode.P))

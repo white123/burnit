@@ -26,6 +26,7 @@ public class myGameManeger : NetworkBehaviour {
     private int lighterCount;
     private bool start;
     private bool over;
+    [SyncVar]
     private float startTime;
     private Color red;
     private Color yello;

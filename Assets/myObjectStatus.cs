@@ -49,7 +49,7 @@ public class myObjectStatus : NetworkBehaviour {
         {
             if (temperature > FIRE_POINT && temperature <= MAX_T)
             {
-                HeatUp(0.5f);
+                HeatUp(0.1f);
                 if (!isBurning)
                 {
                     SetBurn();

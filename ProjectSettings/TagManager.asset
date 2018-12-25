@@ -13,6 +13,7 @@ TagManager:
   - Dead
   - BGM
   - Sound
+  - Info
   layers:
   - Default
   - TransparentFX

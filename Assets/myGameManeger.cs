@@ -111,7 +111,7 @@ public class myGameManeger : NetworkBehaviour {
         else
         {
             timeText.text = "0";
-            gameover();
+            CmdGameover(false);
             return;
         }
 
@@ -127,7 +127,7 @@ public class myGameManeger : NetworkBehaviour {
         leftText.text = lighterCount.ToString("D2");
         if(lighterCount == 0)
         {
-            gameover();
+            CmdGameover(false);
             return;
         }
         
@@ -146,7 +146,7 @@ public class myGameManeger : NetworkBehaviour {
         if(health <= 0.2f)
         {
             healthText.text = "20%";
-            gameover();
+            CmdGameover(true);
             return;
         }
 
@@ -162,7 +162,14 @@ public class myGameManeger : NetworkBehaviour {
         return players.Length;
     }
 
-    private void gameover()
+    [Command]
+    private void CmdGameover(bool lighterWin)
+    {
+        this.transform.gameObject.GetComponent<myGameManeger>().RpcGameover(lighterWin);
+    }
+
+    [ClientRpc]
+    private void RpcGameover(bool lighterWin)
     {
         foreach(GameObject canvas in GameObject.FindGameObjectsWithTag("canvas"))
         {
@@ -185,7 +192,7 @@ public class myGameManeger : NetworkBehaviour {
             }
         }
         
-        if (h > 20f)
+        if (!lighterWin)
         {
             if (isLighter) text.text = "YOU LOSE!";
             else text.text = "YOU WIN!";

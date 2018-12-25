@@ -175,7 +175,7 @@ public class myPlayerController: NetworkBehaviour
             transform.Find("MyExtinguisher").gameObject.SetActive(true);
             gameObject.tag = "Extinguisher";
             GetComponent<FirstPersonController>().SetSpeed(15f, 30f);
-            transform.Find("MyExtinguisher").GetComponent<myExtinguishObject>().heat = 20 * n;
+            transform.Find("MyExtinguisher").GetComponent<myExtinguishObject>().heat = 2*n - 3;
             lighterOrExtinguisher = 1;
         }
         else if (lighterOrExtinguisher == 1)

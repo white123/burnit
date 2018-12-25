@@ -1408,7 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f582509a22687764f9da631a6d371c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heat: 1
+  heat: 3
 --- !u!114 &114811057525327374
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class myBurnObject : MonoBehaviour {
 
-    public float heat = 40f;
+    public float heat;
 
     private bool canBurn = false;
 

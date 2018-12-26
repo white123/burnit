@@ -1394,6 +1394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defeatedCanvas: {fileID: 1159824697340640, guid: ea13904a1adca7a488a6b932d3d13337,
     type: 2}
+  newMat: {fileID: 2100000, guid: 88e13f94df161174e8acc2cda4c80a9a, type: 2}
   m_LighterSound: {fileID: 8300000, guid: 808fb4b0a3fd9d141adf8f21e206cb17, type: 3}
   m_ExtinguisherSound: {fileID: 8300000, guid: 74a1af1f9cb40284fa6984d0a747c6f6, type: 3}
   m_AttackSound: {fileID: 8300000, guid: 4723d9a2c5da1044dbe1ba5a76108607, type: 3}
@@ -1440,8 +1441,8 @@ MonoBehaviour:
   m_StickToGroundForce: 10
   m_GravityMultiplier: 1
   m_MouseLook:
-    XSensitivity: 2
-    YSensitivity: 2
+    XSensitivity: 1
+    YSensitivity: 1
     clampVerticalRotation: 1
     MinimumX: -20
     MaximumX: 20

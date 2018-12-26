@@ -5,8 +5,9 @@ using UnityEngine.Networking;
 public class myPlayerController: NetworkBehaviour 
 {
     public GameObject defeatedCanvas;
+    public Material newMat;
 
-	private FirstPersonController fpsController;
+    private FirstPersonController fpsController;
 	private Transform playerCameraTransform;
 	private Camera playerCamera;
 	private AudioListener playerAudioListener;
@@ -151,6 +152,27 @@ public class myPlayerController: NetworkBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        GameObject character = transform.Find("MyLighter").gameObject;
+        character.transform.Find("LighterFlame").gameObject.SetActive(false);
+        character.GetComponent<BoxCollider>().enabled = false;
+
+        Renderer[] children;
+        children = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in children)
+        {
+            if (rend.tag == "Smoke") continue;
+            if (rend.tag == "Fire") continue;
+
+
+            var mats = new Material[rend.materials.Length];
+            for (var j = 0; j < rend.materials.Length; j++)
+            {
+                mats[j] = newMat;
+            }
+            rend.materials = mats;
+        }
+
         gameObject.tag = "Dead";
         if ("ME" != killed.name) return;
         Instantiate (defeatedCanvas, Vector2.zero, Quaternion.identity);

@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class myPlayerController: NetworkBehaviour 
 {
     public GameObject defeatedCanvas;
     public Material newMat;
+    [SyncVar]
+    public string pname;
+    [SyncVar]
+    public Color pcolor;
+    public Text nameText;
 
     private FirstPersonController fpsController;
 	private Transform playerCameraTransform;
@@ -35,6 +41,7 @@ public class myPlayerController: NetworkBehaviour
                 Debug.LogError("set active lighter or extinguisher only one");
             gameObject.name = "ME";
             m_AudioSource = this.transform.Find("SoundEffect").GetComponent<AudioSource>();
+            nameText.text = "";
         }
 
         //當角色被產生出來時，如果不是Local Player就把所有的控制項目關閉，這些角色的位置資料將由Server來同步
@@ -58,13 +65,21 @@ public class myPlayerController: NetworkBehaviour
             {
                 playerAudioListener.enabled = false;
             }
-            
+            nameText.text = pname;
+            nameText.color = pcolor;
         }
 
 	}
     
     private void Update()
     {
+        Transform status = transform.Find("Status");
+        if (status)
+        {
+            status.LookAt(Camera.main.transform);
+            status.transform.Rotate(0, 180, 0);
+        }
+
         if (!isLocalPlayer) return;
 
         if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -100,6 +115,8 @@ public class myPlayerController: NetworkBehaviour
         {
             CmdChangeCharacter(this.transform.gameObject);
         }
+
+
 
     }
 
